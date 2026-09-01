@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bgDarker: #f3e9e2;
+  --color-bgLight: #f9f4f1;
+  --color-topBg: #574b43;
+  --color-midGradient: #b6a598;
+  --color-topText: #fbe8da;
+  --color-heartOutline: #ad7f6f;
+  --color-titleText: #864e3c;
+  
+  --font-great-vibes: "Great Vibes", cursive;
+  --font-alex-brush: "Alex Brush", cursive;
+  --font-amiri: "Amiri", serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bgLight);
+    color: #1f2937;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-montserrat);
+  }
+}
