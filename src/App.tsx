@@ -28,8 +28,8 @@ const config = {
     area: 'Grid Road Dera Ismail Khan',
     address: 'Grid Road, Dera Ismail Khan, KPK',
     mapEmbedUrl:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.0!2d70.902!3d31.833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDQ5JzU4LjgiTiA3MMKwNTQnMDcuMiJF!5e0!3m2!1sen!2s!4v1!5m2!1sen!2s',
-    googleMapsLink: 'https://maps.google.com/?q=Galaxy+Marriage+Hall+Dera+Ismail+Khan',
+      'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3310.744!2d70.899029!3d31.845421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDUwJzQzLjUiTiA3MMKwNTMnNTYuNSJF!5e0!3m2!1sen!2s!4v1725366600000!5m2!1sen!2s',
+    googleMapsLink: 'https://maps.app.goo.gl/KoBMzAeRw2UC6NLb7',
   },
   lookingForward: ['Mudassir Hameed', 'Hafiz Muhammad Muzamil', 'Muhammad Zakwan'],
   reception: 'All Family Members & Relatives',
