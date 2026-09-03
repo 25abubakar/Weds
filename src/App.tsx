@@ -19,9 +19,9 @@ const config = {
     targetDate: 'December 5, 2026 19:30:00',
   },
   slides: [
-    'https://iqrash-weds-ayesha.pages.dev/slides/slide-1.jpg',
-    'https://iqrash-weds-ayesha.pages.dev/slides/slide-2.jpg',
-    'https://iqrash-weds-ayesha.pages.dev/slides/slide-3.jpg',
+    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1583939000340-6906241b12b5?auto=format&fit=crop&w=1200&q=80',
   ],
   venue: {
     name: 'Galaxy Marriage Hall',
