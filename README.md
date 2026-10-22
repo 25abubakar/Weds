@@ -1,32 +1,27 @@
-# React + TypeScript + Vite
+# Abubakar & Umar — Walima invite (2026)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite wedding card with gate video, section music, and scratch reveal.
 
-Currently, two official plugins are available:
+**Live:** https://abubakarndumar.abubakar-devv.workers.dev/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Deploy (recommended)
 
-## React Compiler
+Har machine se sirf **git push** — Cloudflare deploy GitHub Actions se hota hai.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Pehli dafa:** GitHub par Cloudflare secrets set karo — poori guide:
 
-## Expanding the Oxlint configuration
+→ **[DEPLOY.md](./DEPLOY.md)**
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Local dev
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open http://localhost:5173/
+
+## Music assets
+
+Bundled: `Welcome page.mp3`, `Scratch here.mp3`, `gate.mp4`.  
+Footer: `Footer.mov` (large) — loaded from GitHub raw in production; optional `Footer.mp3` in `src/assets/music/` for smaller bundle.
