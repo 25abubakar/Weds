@@ -3,10 +3,11 @@ import Countdown from 'react-countdown';
 import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-react';
 import Confetti from 'react-confetti';
 import coupleSlide from './assets/couple-slide.png';
+import gateImage from './assets/gate.jpg';
 
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
-  gateImage: '/gate.jpg',
+  gateImage,
   heroImage: coupleSlide,
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
