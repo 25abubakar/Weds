@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import Countdown from 'react-countdown';
 import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-react';
 import Confetti from 'react-confetti';
+import coupleSlide from './assets/couple-slide.png';
 
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateImage: '/gate.jpg',
-  heroImage: '/hero.jpg',
+  heroImage: coupleSlide,
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
     groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
@@ -41,7 +42,7 @@ const config = {
       detail: 'Festive feast & celebration with family',
     },
   ],
-  slides: ['/slides/slide-1.jpg', '/slides/slide-2.jpg', '/hero.jpg'],
+  slides: [coupleSlide],
   venue: {
     name: 'Galaxy Marriage Lawn',
     area: 'Dera Ismail Khan',
@@ -515,18 +516,19 @@ export default function App() {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
           </div>
         ))}
-        {/* Slide indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {config.slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentSlide(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                currentSlide === i ? 'w-6 bg-white' : 'w-2 bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
+        {config.slides.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            {config.slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentSlide === i ? 'w-6 bg-white' : 'w-2 bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ── Countdown ──────────────────────────────────── */}
