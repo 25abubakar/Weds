@@ -28,7 +28,7 @@
 
 .gate-overlay-screen {
   overflow: hidden;
-  background: #000;
+  background: #1a2838;
 }
 
 .gate-couple-bg {
@@ -42,6 +42,26 @@
   transition:
     opacity 1.2s ease 0.15s,
     transform 2.2s ease-out 0.15s;
+}
+
+.gate-couple-bg-idle {
+  opacity: 0.22;
+  transform: scale(1.02);
+}
+
+.gate-idle-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 18;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+}
+
+.gate-video-idle {
+  opacity: 0;
 }
 
 .gate-couple-bg-show {
@@ -71,7 +91,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transition: opacity 0.65s ease;
+  background-color: transparent;
+  transition: opacity 0.35s ease;
+}
+
+.gate-video-fullscreen:not(.gate-video-idle) {
+  opacity: 1;
 }
 
 .gate-video-fade-out {
