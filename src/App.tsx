@@ -4,13 +4,10 @@ import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-rea
 import Confetti from 'react-confetti';
 
 const config = {
-  siteUrl: 'https://abubakar-nd-umar.pages.dev',
-  gateImage:
-    'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1400&q=80',
-  groomPortraitImage:
-    'https://images.unsplash.com/photo-1591604466377-1a63d960d581?auto=format&fit=crop&w=800&q=80',
-  heroImage:
-    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=80',
+  siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
+  gateImage: '/gate.jpg',
+  groomPortraitImage: '/hero.jpg',
+  heroImage: '/hero.jpg',
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
     groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
@@ -45,11 +42,7 @@ const config = {
       detail: 'Festive feast & celebration with family',
     },
   ],
-  slides: [
-    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1583939000340-6906241b12b5?auto=format&fit=crop&w=1200&q=80',
-  ],
+  slides: ['/slides/slide-1.jpg', '/slides/slide-2.jpg', '/hero.jpg'],
   venue: {
     name: 'Galaxy Marriage Lawn',
     area: 'Dera Ismail Khan',
@@ -86,32 +79,28 @@ function GateOverlay({ onOpen }: { onOpen: () => void }) {
   const handleOpen = () => {
     if (opening) return;
     setOpening(true);
-    window.setTimeout(onOpen, 1400);
+    window.setTimeout(onOpen, 1300);
   };
 
   return (
     <div
-      className={`fixed inset-0 z-[100] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
+      className={`fixed inset-0 z-[100] bg-[#1a1410] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
       aria-hidden={opening}
     >
-      <img src={config.gateImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      <div
-        className={`gate-door gate-door-left ${opening ? 'gate-door-open' : ''}`}
-        style={{ backgroundImage: `url(${config.gateImage})` }}
-      />
-      <div
-        className={`gate-door gate-door-right ${opening ? 'gate-door-open' : ''}`}
-        style={{ backgroundImage: `url(${config.gateImage})` }}
-      />
-      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+      <div className={`gate-panel gate-panel-left ${opening ? 'gate-panel-open-left' : ''}`}>
+        <img src={config.gateImage} alt="" className="gate-panel-image gate-panel-image-left" />
+      </div>
+      <div className={`gate-panel gate-panel-right ${opening ? 'gate-panel-open-right' : ''}`}>
+        <img src={config.gateImage} alt="" className="gate-panel-image gate-panel-image-right" />
+      </div>
       {!opening && (
         <button
           type="button"
           onClick={handleOpen}
-          className="absolute inset-0 z-10 cursor-pointer border-0 bg-transparent"
+          className="absolute inset-0 z-30 cursor-pointer border-0 bg-transparent"
           aria-label="Click to open the gate"
         >
-          <span className="absolute bottom-[18%] left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-5 py-2 text-xs uppercase tracking-[0.35em] text-white/95 font-montserrat backdrop-blur-sm">
+          <span className="absolute bottom-[12%] left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white font-montserrat backdrop-blur-sm shadow-lg">
             Click to open the gate
           </span>
         </button>
@@ -426,53 +415,51 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/70" />
 
-        <div className="relative z-10 max-w-3xl mx-auto text-[#f5e6d3]">
-          <p className="font-amiri text-2xl sm:text-3xl leading-relaxed text-[#e8d0a0] mb-4">
+        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-2">
+          <p className="font-amiri text-2xl sm:text-3xl leading-relaxed text-[#e8d0a0] mb-3">
             بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
           </p>
-          <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] font-montserrat mb-8">
+          <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] font-montserrat mb-5">
             We are getting married
           </p>
-        </div>
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto mt-2">
-        <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold">
-          Together With Their Families
-        </p>
-        <p className="font-montserrat text-sm text-[#fdf4e7] mb-3 font-medium">
-          Sons of {config.family.fatherName}
-        </p>
-        <p className="uppercase tracking-[0.22em] text-[10px] sm:text-xs text-[#e8d0a0] mb-2 font-montserrat px-2">
-          You Are Cordially Invited To The Walima Ceremony Of
-        </p>
+          <div className="mx-auto mb-6 w-32 h-32 sm:w-40 sm:h-40 shrink-0 rounded-full overflow-hidden border-4 border-[#c9a96e] shadow-[0_8px_32px_rgba(0,0,0,0.45)] ring-2 ring-[#c9a96e]/30">
+            <img
+              src={config.groomPortraitImage}
+              alt=""
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
 
-        <div className="flex items-center gap-3 my-5 w-full max-w-sm mx-auto">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#c9a96e]/80" />
-          <span className="text-[#c9a96e] text-lg">❧</span>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#c9a96e]/80" />
-        </div>
+          <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold">
+            Together With Their Families
+          </p>
+          <p className="font-montserrat text-sm text-[#fdf4e7] mb-3 font-medium">
+            Sons of {config.family.fatherName}
+          </p>
+          <p className="uppercase tracking-[0.22em] text-[10px] sm:text-xs text-[#e8d0a0] mb-2 font-montserrat max-w-lg">
+            You Are Cordially Invited To The Walima Ceremony Of
+          </p>
 
-        <div className="mx-auto my-5 w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-[#c9a96e] shadow-[0_8px_32px_rgba(0,0,0,0.45)]">
-          <img
-            src={config.groomPortraitImage}
-            alt="Groom celebration"
-            className="h-full w-full object-cover object-top"
-          />
-        </div>
+          <div className="flex items-center gap-3 my-5 w-full max-w-sm mx-auto">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#c9a96e]/80" />
+            <span className="text-[#c9a96e] text-lg">❧</span>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#c9a96e]/80" />
+          </div>
 
-        <div className="w-full max-w-5xl mx-auto my-4 flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start gap-6 lg:gap-4">
-          <CouplePairBlock
-            groomName={config.couple1.groom.name}
-            groomParent={config.couple1.groom.parent}
-            brideParentName={config.couple1.bride.parentName}
-          />
-          <AmpersandDivider className="py-2 lg:py-16" />
-          <CouplePairBlock
-            groomName={config.couple2.groom.name}
-            groomParent={config.couple2.groom.parent}
-            brideParentName={config.couple2.bride.parentName}
-          />
-        </div>
+          <div className="w-full max-w-5xl mx-auto my-2 flex flex-col items-center gap-6 lg:flex-row lg:justify-center lg:items-center lg:gap-3">
+            <CouplePairBlock
+              groomName={config.couple1.groom.name}
+              groomParent={config.couple1.groom.parent}
+              brideParentName={config.couple1.bride.parentName}
+            />
+            <AmpersandDivider className="py-0 lg:px-2 shrink-0" />
+            <CouplePairBlock
+              groomName={config.couple2.groom.name}
+              groomParent={config.couple2.groom.parent}
+              brideParentName={config.couple2.bride.parentName}
+            />
+          </div>
 
         {/* Beginning of a beautiful journey */}
         <div className="mt-10 text-center">
@@ -525,7 +512,7 @@ export default function App() {
               currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           >
-            <img src={slide} alt="Wedding" className="w-full h-full object-cover" />
+            <img src={slide} alt="Walima celebration" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
           </div>
         ))}

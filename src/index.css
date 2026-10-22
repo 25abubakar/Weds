@@ -26,36 +26,52 @@
   }
 }
 
-.gate-door {
+.gate-panel {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: transform 1.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  z-index: 20;
+  transition: transform 1.25s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
 }
 
-.gate-door-left {
+.gate-panel-left {
   left: 0;
-  background-position: left center;
-  transform-origin: left center;
 }
 
-.gate-door-right {
+.gate-panel-right {
   right: 0;
-  background-position: right center;
-  transform-origin: right center;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.25);
 }
 
-.gate-door-left.gate-door-open {
-  transform: perspective(1200px) rotateY(-78deg) translateX(-8%);
+.gate-panel-open-left {
+  transform: translateX(-100%);
 }
 
-.gate-door-right.gate-door-open {
-  transform: perspective(1200px) rotateY(78deg) translateX(8%);
+.gate-panel-open-right {
+  transform: translateX(100%);
+}
+
+.gate-panel-image {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 200vw;
+  max-width: none;
+  object-fit: cover;
+}
+
+.gate-panel-image-left {
+  left: 0;
+  object-position: left center;
+}
+
+.gate-panel-image-right {
+  left: -100%;
+  object-position: center;
 }
 
 .gate-overlay-fade {
