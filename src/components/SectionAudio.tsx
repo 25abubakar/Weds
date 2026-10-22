@@ -32,6 +32,7 @@ export function SectionAudio({ section, isActiveSlide }: SectionAudioProps) {
         loop
         playsInline
         preload="auto"
+        crossOrigin="anonymous"
         aria-hidden
         tabIndex={-1}
       />
