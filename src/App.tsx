@@ -4,6 +4,8 @@ import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-rea
 import Confetti from 'react-confetti';
 import coupleSlide from './assets/couple-slide.png';
 import gateImage from './assets/gate.jpg';
+import slide1 from './assets/slide-1.png';
+import slide2 from './assets/slide-2.jpg';
 
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
@@ -43,7 +45,7 @@ const config = {
       detail: 'Festive feast & celebration with family',
     },
   ],
-  slides: [coupleSlide],
+  slides: [slide1, slide2, coupleSlide],
   venue: {
     name: 'Galaxy Marriage Lawn',
     area: 'Dera Ismail Khan',
