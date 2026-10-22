@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "push:live": "git push origin master && git push pages master:main"
+    "push:live": "git push origin master"
   },
   "dependencies": {
     "react": "^19.2.8",
