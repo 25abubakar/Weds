@@ -7,6 +7,8 @@ const config = {
   siteUrl: 'https://abubakar-nd-umar.pages.dev',
   gateImage:
     'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1400&q=80',
+  groomPortraitImage:
+    'https://images.unsplash.com/photo-1591604466377-1a63d960d581?auto=format&fit=crop&w=800&q=80',
   heroImage:
     'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=80',
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
@@ -79,19 +81,62 @@ function SectionHeart() {
 }
 
 function GateOverlay({ onOpen }: { onOpen: () => void }) {
+  const [opening, setOpening] = useState(false);
+
+  const handleOpen = () => {
+    if (opening) return;
+    setOpening(true);
+    window.setTimeout(onOpen, 1400);
+  };
+
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="fixed inset-0 z-[100] w-full h-full border-0 p-0 cursor-pointer"
-      aria-label="Click to open the gate"
+    <div
+      className={`fixed inset-0 z-[100] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
+      aria-hidden={opening}
     >
       <img src={config.gateImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-black/25" />
-      <span className="absolute bottom-[18%] left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-5 py-2 text-xs uppercase tracking-[0.35em] text-white/95 font-montserrat backdrop-blur-sm">
-        Click to open the gate
-      </span>
-    </button>
+      <div
+        className={`gate-door gate-door-left ${opening ? 'gate-door-open' : ''}`}
+        style={{ backgroundImage: `url(${config.gateImage})` }}
+      />
+      <div
+        className={`gate-door gate-door-right ${opening ? 'gate-door-open' : ''}`}
+        style={{ backgroundImage: `url(${config.gateImage})` }}
+      />
+      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+      {!opening && (
+        <button
+          type="button"
+          onClick={handleOpen}
+          className="absolute inset-0 z-10 cursor-pointer border-0 bg-transparent"
+          aria-label="Click to open the gate"
+        >
+          <span className="absolute bottom-[18%] left-1/2 -translate-x-1/2 rounded-full bg-black/45 px-5 py-2 text-xs uppercase tracking-[0.35em] text-white/95 font-montserrat backdrop-blur-sm">
+            Click to open the gate
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+function CouplePairBlock({
+  groomName,
+  groomParent,
+  brideParentName,
+}: {
+  groomName: string;
+  groomParent: string;
+  brideParentName: string;
+}) {
+  return (
+    <div className="w-full max-w-md mx-auto rounded-3xl border border-[#c9a96e]/45 bg-black/30 backdrop-blur-[2px] p-4 sm:p-5 shadow-lg">
+      <InvitePersonCard variant="groom" name={groomName} subtitle={groomParent} />
+      <p className="font-great-vibes text-xl sm:text-2xl text-[#e8d0a0] my-4 italic text-center">
+        with the daughter of
+      </p>
+      <InvitePersonCard variant="bride" badge="Daughter of" name={brideParentName} />
+    </div>
   );
 }
 
@@ -407,36 +452,25 @@ export default function App() {
           <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#c9a96e]/80" />
         </div>
 
-        {/* Two Grooms */}
-        <div className="w-full max-w-3xl mx-auto my-4 flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center gap-4 sm:gap-3">
-          <InvitePersonCard
-            variant="groom"
-            name={config.couple1.groom.name}
-            subtitle={config.couple1.groom.parent}
-          />
-          <AmpersandDivider className="py-0 sm:py-4" />
-          <InvitePersonCard
-            variant="groom"
-            name={config.couple2.groom.name}
-            subtitle={config.couple2.groom.parent}
+        <div className="mx-auto my-5 w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-[#c9a96e] shadow-[0_8px_32px_rgba(0,0,0,0.45)]">
+          <img
+            src={config.groomPortraitImage}
+            alt="Groom celebration"
+            className="h-full w-full object-cover object-top"
           />
         </div>
 
-        {/* "with the daughter of" */}
-        <p className="font-great-vibes text-2xl sm:text-3xl text-[#e8d0a0] my-6 italic">with the daughter of</p>
-
-        {/* Bride side — names of fathers only (no bride names) */}
-        <div className="w-full max-w-3xl mx-auto flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center gap-4 sm:gap-3">
-          <InvitePersonCard
-            variant="bride"
-            badge="Daughter of"
-            name={config.couple1.bride.parentName}
+        <div className="w-full max-w-5xl mx-auto my-4 flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start gap-6 lg:gap-4">
+          <CouplePairBlock
+            groomName={config.couple1.groom.name}
+            groomParent={config.couple1.groom.parent}
+            brideParentName={config.couple1.bride.parentName}
           />
-          <AmpersandDivider className="py-0 sm:py-4" />
-          <InvitePersonCard
-            variant="bride"
-            badge="Daughter of"
-            name={config.couple2.bride.parentName}
+          <AmpersandDivider className="py-2 lg:py-16" />
+          <CouplePairBlock
+            groomName={config.couple2.groom.name}
+            groomParent={config.couple2.groom.parent}
+            brideParentName={config.couple2.bride.parentName}
           />
         </div>
 
@@ -736,7 +770,6 @@ export default function App() {
             ({config.family.phone})
           </a>
         </p>
-        <p className="text-[#9b7856] text-[10px] mt-2 font-montserrat">Sons of {config.family.fatherName}</p>
         <div className="flex items-center gap-3 justify-center mt-6">
           <div className="h-px w-12 bg-[#c9a96e]/50" />
           <span className="text-[#c9a96e]">♥</span>
