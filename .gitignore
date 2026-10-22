@@ -10,6 +10,12 @@ lerna-debug.log*
 
 node_modules
 dist
+
+# Unused / test audio (not linked to any section)
+src/assets/music/testttt.mp3
+src/assets/music/Sadi_Mehfil.mp3
+src/assets/real-Gate1.mp4
+src/assets/1_dwbExFqY7oK3Og_chGDonQ.jpg
 dist-ssr
 *.local
 

@@ -3,15 +3,20 @@ import Countdown from 'react-countdown';
 import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-react';
 import Confetti from 'react-confetti';
 import realGate from './assets/real-Gate.mp4';
+import gateSoundClip from './assets/music/gate.mp4';
 import coupleSlide from './assets/couple-slide.jpg';
 import slide1 from './assets/slide-1.jpg';
 import slide2 from './assets/slide-2.jpg';
 import slide3 from './assets/slide-3.jpg';
 import { GateOverlay } from './components/GateOverlay';
-
+import { MusicMissingBanner } from './components/MusicMissingBanner';
+import { SectionMusicPlayer } from './components/SectionMusicPlayer';
+import { SectionAudio } from './components/SectionAudio';
+import { syncFirstVisibleSectionAudio } from './lib/sectionMusicObserver';
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateVideo: realGate,
+  gateSoundVideo: gateSoundClip,
   heroImage: coupleSlide,
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
@@ -179,7 +184,6 @@ const ScratchCard = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [cardSize, setCardSize] = useState({ width: 320, height: 160 });
-
   const syncCanvasSize = () => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
@@ -268,7 +272,9 @@ const ScratchCard = ({
       isDrawing = true;
       scratch(e);
     };
-    const stop = () => (isDrawing = false);
+    const stop = () => {
+      isDrawing = false;
+    };
 
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mouseup', stop);
@@ -370,19 +376,29 @@ export default function App() {
   }, [gateOpen]);
 
   const groomShort = `${config.couple1.groom.name.split(' ').pop()} & ${config.couple2.groom.name.split(' ').pop()}`;
-
   return (
     <div className="min-h-screen" style={{ background: '#fdf8f0', fontFamily: 'Montserrat, sans-serif' }}>
       {!gateOpen && (
         <GateOverlay
           gateVideo={config.gateVideo}
+          gateSoundVideo={config.gateSoundVideo}
           previewImage={config.heroImage}
-          onOpen={() => setGateOpen(true)}
+          onOpen={() => {
+            setGateOpen(true);
+            window.setTimeout(() => syncFirstVisibleSectionAudio(), 200);
+          }}
         />
       )}
 
+      <MusicMissingBanner />
+      <SectionMusicPlayer enabled={gateOpen} />
+
       {/* ── Hero (reference-style intro) ─────────────────── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 overflow-hidden">
+      <section
+        id="hero-section"
+        className="scroll-section relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 overflow-hidden"
+      >
+        <SectionAudio section="hero" />
         <img
           src={config.heroImage}
           alt=""
@@ -446,34 +462,40 @@ export default function App() {
         <ChevronDown className="relative z-10 mt-10 h-8 w-8 text-[#e8d0a0]/80 animate-bounce" aria-hidden />
       </section>
 
-      {/* ── Welcome (reference gradient block) ───────────── */}
+      {/* ── Welcome + Scratch (ek section — snapshot jaisa poora block) ── */}
       <section
-        className="px-6 py-16 sm:py-20 text-center"
-        style={{ background: 'linear-gradient(180deg, #6b5344 0%, #9b7856 35%, #f5e9d5 100%)' }}
+        id="scratch-section"
+        className="scroll-section min-h-screen flex flex-col justify-center px-4 sm:px-6 py-16 sm:py-20 text-center"
+        style={{
+          background:
+            'linear-gradient(180deg, #6b5344 0%, #9b7856 22%, #f5e9d5 48%, #fdf8f0 72%, #ffffff 100%)',
+        }}
       >
-        <p className="max-w-xl mx-auto font-playfair text-sm sm:text-base italic leading-relaxed text-[#fdf8f0]">
+        <SectionAudio section="scratch" />
+        <p className="max-w-xl mx-auto font-playfair text-sm sm:text-base italic leading-relaxed text-[#fdf8f0] mb-10 sm:mb-12 px-1">
           We are honored to welcome you to the Walima ceremony of{' '}
           <span className="font-semibold not-italic">{config.couple1.groom.name}</span> &{' '}
           <span className="font-semibold not-italic">{config.couple2.groom.name}</span>. As they begin
           their journey together in faith and love, we thank you for being part of this blessed occasion.
         </p>
-      </section>
-
-      {/* ── Date Scratch & Reveal ───────────────────────── */}
-      <section
-        className="py-16 sm:py-20 px-4 text-center"
-        style={{ background: 'linear-gradient(180deg, #f5e9d5 0%, #fdf8f0 45%, #ffffff 100%)' }}
-      >
         <h2 className="font-great-vibes text-3xl sm:text-4xl text-[#7a4f2d] mb-1">
           {isRevealed ? 'Our Forever Begins ✨' : 'Scratch to reveal date'}
         </h2>
         <SectionHeart />
-        <p className="text-gray-400 text-sm font-montserrat mb-2 -mt-4">Use your finger or mouse to scratch</p>
+        <p className="text-gray-400 text-sm font-montserrat mb-2 -mt-4">
+          Use your finger or mouse to scratch
+        </p>
         <ScratchCard isRevealed={isRevealed} setIsRevealed={setIsRevealed} />
       </section>
 
-      {/* ── Slideshow ───────────────────────────────────── */}
-      <section className="w-full max-w-4xl mx-auto h-[60vh] md:h-[75vh] relative overflow-hidden my-8 shadow-2xl rounded-3xl">
+      {/* ── Slideshow → page end (ek footer sound) ─────── */}
+      <section id="footer-sound-zone" className="scroll-section">
+        <SectionAudio section="footer" />
+
+      <div
+        id="slideshow-section"
+        className="w-full max-w-4xl mx-auto h-[60vh] md:h-[75vh] relative overflow-hidden my-8 shadow-2xl rounded-3xl"
+      >
         {config.slides.map((slide, index) => (
           <div
             key={index}
@@ -498,10 +520,14 @@ export default function App() {
             ))}
           </div>
         )}
-      </section>
+      </div>
 
       {/* ── Countdown ──────────────────────────────────── */}
-      <section className="py-20 px-4 text-center" style={{ background: 'linear-gradient(135deg, #f5e9d5 0%, #fdf8f0 100%)' }}>
+      <section
+        id="countdown-section"
+        className="py-20 px-4 text-center"
+        style={{ background: 'linear-gradient(135deg, #f5e9d5 0%, #fdf8f0 100%)' }}
+      >
         <div className="flex items-center gap-3 justify-center mb-4">
           <div className="h-px w-10 bg-[#c9a96e]" />
           <span className="text-[#c9a96e]">♥</span>
@@ -513,7 +539,7 @@ export default function App() {
       </section>
 
       {/* ── Venue & Schedule ───────────────────────────── */}
-      <section className="py-20 px-4 max-w-5xl mx-auto">
+      <section id="details-section" className="py-20 px-4 max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <p className="uppercase tracking-[0.3em] text-xs text-[#9b7856] mb-2 font-semibold">Walima Details</p>
           <h2 className="font-great-vibes text-5xl text-[#7a4f2d]">Walima Ceremony</h2>
@@ -600,7 +626,10 @@ export default function App() {
       </section>
 
       {/* ── Map ────────────────────────────────────────── */}
-      <section className="w-full h-[400px] px-4 pb-8 max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-lg">
+      <section
+        id="map-section"
+        className="w-full h-[400px] px-4 pb-8 max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-lg"
+      >
         <iframe
           src={config.venue.mapEmbedUrl}
           className="w-full h-full border-0 rounded-3xl"
@@ -611,7 +640,7 @@ export default function App() {
       </section>
 
       {/* ── Dress Code ─────────────────────────────────── */}
-      <section className="py-16 px-4 max-w-3xl mx-auto text-center">
+      <section id="dress-code-section" className="py-16 px-4 max-w-3xl mx-auto text-center">
         <div className="flex items-center justify-center gap-2 mb-6">
           <Shirt className="w-5 h-5 text-[#c9a96e]" />
           <h2 className="font-great-vibes text-4xl text-[#7a4f2d]">Dress Code</h2>
@@ -629,7 +658,7 @@ export default function App() {
       </section>
 
       {/* ── RSVP ───────────────────────────────────────── */}
-      <section className="py-20 px-4 bg-white text-center">
+      <section id="rsvp-section" className="py-20 px-4 bg-white text-center">
         <div className="flex items-center gap-3 justify-center mb-4">
           <div className="h-px w-10 bg-[#c9a96e]" />
           <span className="text-[#c9a96e]">♥</span>
@@ -696,7 +725,7 @@ export default function App() {
       </section>
 
       {/* ── Closing (reference-style) ──────────────────── */}
-      <section className="py-14 px-4 text-center bg-[#fdf8f0]">
+      <section id="closing-section" className="py-14 px-4 text-center bg-[#fdf8f0]">
         <div className="flex items-center gap-3 justify-center mb-4 max-w-xs mx-auto">
           <div className="h-px flex-1 bg-[#c9a96e]/60" />
           <span className="text-[#c9a96e]">♥</span>
@@ -717,7 +746,7 @@ export default function App() {
       </section>
 
       {/* ── Footer / contact ───────────────────────────── */}
-      <footer className="py-10 px-4 text-center" style={{ background: '#5a3e28' }}>
+      <footer id="footer-section" className="py-10 px-4 text-center" style={{ background: '#5a3e28' }}>
         <p className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-[#c9a96e] mb-3">
           For Walima inquiries
         </p>
@@ -734,6 +763,8 @@ export default function App() {
         </div>
         <p className="text-[#9b7856] text-xs mt-4 font-montserrat">Beginning of a Beautiful Journey</p>
       </footer>
+
+      </section>
     </div>
   );
 }

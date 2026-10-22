@@ -1,0 +1,20 @@
+14 background music files — isi naam se public/music/ mein save karein:
+
+ 1. Screengate.mp3     → Gate (open-gate-btn click)
+ 2. hero.mp3           → #hero-section
+ 3. welcome.mp3        → #welcome-section
+ 4. scratch.mp3        → #scratch-section
+ 5. slide-1.mp3        → #slideshow-section (photo 1)
+ 6. slide-2.mp3        → #slideshow-section (photo 2)
+ 7. slide-3.mp3        → #slideshow-section (photo 3)
+ 8. countdown.mp3      → #countdown-section
+ 9. details.mp3        → #details-section
+10. map.mp3            → #map-section
+11. dress-code.mp3     → #dress-code-section
+12. rsvp.mp3           → #rsvp-section
+13. closing.mp3        → #closing-section
+14. footer.mp3          → #footer-section
+
+Full mapping: src/config/sectionMusicManifest.ts
+
+Jab aap ek file ready karein, mujhe bata dein — main verify kar dunga ke load ho rahi hai.

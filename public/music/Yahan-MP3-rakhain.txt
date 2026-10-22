@@ -1,0 +1,20 @@
+Is folder mein apni sound files copy karein (names exact hon):
+
+  Screengate.mp3   — gate click par
+  hero.mp3
+  welcome.mp3
+  scratch.mp3
+  slideshow.mp3
+  countdown.mp3
+  details.mp3
+  map.mp3
+  dress-code.mp3
+  rsvp.mp3
+  closing.mp3
+  footer.mp3
+
+Kam se kam Screengate.mp3 + hero.mp3 + welcome.mp3 test ke liye kaafi hain.
+
+Path: wedding-card/public/music/
+
+Save ke baad browser refresh karein (npm run dev chal raha ho).
