@@ -82,16 +82,22 @@ function GateOverlay({ onOpen }: { onOpen: () => void }) {
     window.setTimeout(onOpen, 1300);
   };
 
+  const gateUrl = config.gateImage;
+
   return (
     <div
-      className={`fixed inset-0 z-[100] bg-[#1a1410] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-[#4a4540] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
       aria-hidden={opening}
     >
-      <div className={`gate-panel gate-panel-left ${opening ? 'gate-panel-open-left' : ''}`}>
-        <img src={config.gateImage} alt="" className="gate-panel-image gate-panel-image-left" />
-      </div>
-      <div className={`gate-panel gate-panel-right ${opening ? 'gate-panel-open-right' : ''}`}>
-        <img src={config.gateImage} alt="" className="gate-panel-image gate-panel-image-right" />
+      <div className="gate-frame">
+        <div
+          className={`gate-half gate-half-left ${opening ? 'gate-half-open-left' : ''}`}
+          style={{ backgroundImage: `url(${gateUrl})` }}
+        />
+        <div
+          className={`gate-half gate-half-right ${opening ? 'gate-half-open-right' : ''}`}
+          style={{ backgroundImage: `url(${gateUrl})` }}
+        />
       </div>
       {!opening && (
         <button
@@ -100,7 +106,7 @@ function GateOverlay({ onOpen }: { onOpen: () => void }) {
           className="absolute inset-0 z-30 cursor-pointer border-0 bg-transparent"
           aria-label="Click to open the gate"
         >
-          <span className="absolute bottom-[12%] left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white font-montserrat backdrop-blur-sm shadow-lg">
+          <span className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-black/55 px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white font-montserrat backdrop-blur-sm shadow-lg">
             Click to open the gate
           </span>
         </button>

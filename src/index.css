@@ -26,52 +26,44 @@
   }
 }
 
-.gate-panel {
+.gate-frame {
+  position: relative;
+  width: min(92vw, 460px);
+  height: min(82vh, 820px);
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.45));
+}
+
+.gate-half {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 50%;
-  overflow: hidden;
-  z-index: 20;
-  transition: transform 1.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  background-position-y: center;
+  transition: transform 1.15s cubic-bezier(0.45, 0, 0.2, 1);
   will-change: transform;
-  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
-.gate-panel-left {
+.gate-half-left {
   left: 0;
+  background-position-x: left;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
 }
 
-.gate-panel-right {
+.gate-half-right {
   right: 0;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.25);
+  background-position-x: right;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
 }
 
-.gate-panel-open-left {
-  transform: translateX(-100%);
+.gate-half-open-left {
+  transform: translateX(-102%);
 }
 
-.gate-panel-open-right {
-  transform: translateX(100%);
-}
-
-.gate-panel-image {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 200vw;
-  max-width: none;
-  object-fit: cover;
-}
-
-.gate-panel-image-left {
-  left: 0;
-  object-position: left center;
-}
-
-.gate-panel-image-right {
-  left: -100%;
-  object-position: center;
+.gate-half-open-right {
+  transform: translateX(102%);
 }
 
 .gate-overlay-fade {
