@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { continueGateMusic, startGateMusic } from '../lib/sectionMusicObserver';
+import {
+  continueGateMusic,
+  startGateMusic,
+  unlockSectionAudioForUserGesture,
+} from '../lib/sectionMusicObserver';
 
 /** Gate open animation kitni der (seconds) — zyada fast clip ko slow kar deta hai */
 export const GATE_OPEN_MAX_SECONDS = 12;
@@ -266,6 +270,7 @@ export function GateOverlay({
 
   const beginGateSoundOnTap = () => {
     if (phase !== 'idle') return;
+    unlockSectionAudioForUserGesture();
 
     if (useClipSound) {
       playGateClipSound(!gateSoundStartedRef.current);
@@ -283,6 +288,7 @@ export function GateOverlay({
 
   const handleOpen = () => {
     if (phase !== 'idle') return;
+    unlockSectionAudioForUserGesture();
     finishedRef.current = false;
     setPhase('opening');
 

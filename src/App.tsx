@@ -12,7 +12,7 @@ import { GateOverlay } from './components/GateOverlay';
 import { MusicMissingBanner } from './components/MusicMissingBanner';
 import { SectionMusicPlayer } from './components/SectionMusicPlayer';
 import { SectionAudio } from './components/SectionAudio';
-import { syncFirstVisibleSectionAudio } from './lib/sectionMusicObserver';
+import { playSectionByDomId, syncFirstVisibleSectionAudio } from './lib/sectionMusicObserver';
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateVideo: realGate,
@@ -375,6 +375,18 @@ export default function App() {
     };
   }, [gateOpen]);
 
+  useEffect(() => {
+    if (!gateOpen) return;
+    const startHeroMusic = () => playSectionByDomId('hero-section');
+    startHeroMusic();
+    const t1 = window.setTimeout(startHeroMusic, 400);
+    const t2 = window.setTimeout(startHeroMusic, 1200);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [gateOpen]);
+
   const groomShort = `${config.couple1.groom.name.split(' ').pop()} & ${config.couple2.groom.name.split(' ').pop()}`;
   return (
     <div className="min-h-screen" style={{ background: '#fdf8f0', fontFamily: 'Montserrat, sans-serif' }}>
@@ -385,7 +397,10 @@ export default function App() {
           previewImage={config.heroImage}
           onOpen={() => {
             setGateOpen(true);
-            window.setTimeout(() => syncFirstVisibleSectionAudio(), 200);
+            window.setTimeout(() => {
+              playSectionByDomId('hero-section');
+              syncFirstVisibleSectionAudio();
+            }, 200);
           }}
         />
       )}
