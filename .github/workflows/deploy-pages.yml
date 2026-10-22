@@ -1,8 +1,8 @@
+# Optional backup host (github.io). Live Walima link is Cloudflare Workers — see deploy-cloudflare.yml.
+# Enable: repo Settings → Pages → Source: GitHub Actions, then run this workflow manually.
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [master, main]
   workflow_dispatch:
 
 permissions:
