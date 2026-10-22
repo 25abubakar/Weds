@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-react';
 import Confetti from 'react-confetti';
 import coupleSlide from './assets/couple-slide.png';
-import gateImage from './assets/gate.jpg';
+import gateImage from './assets/gate-white.jpg';
 import slide1 from './assets/slide-1.png';
 import slide2 from './assets/slide-2.jpg';
 
