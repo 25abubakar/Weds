@@ -89,7 +89,7 @@ function GateOverlay({ onOpen }: { onOpen: () => void }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-[#4a4540] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
+      className={`gate-overlay-screen fixed inset-0 z-[100] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
       aria-hidden={opening}
     >
       <div className="gate-frame">
