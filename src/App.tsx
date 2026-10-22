@@ -6,7 +6,6 @@ import Confetti from 'react-confetti';
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateImage: '/gate.jpg',
-  groomPortraitImage: '/hero.jpg',
   heroImage: '/hero.jpg',
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
@@ -429,15 +428,7 @@ export default function App() {
             We are getting married
           </p>
 
-          <div className="mx-auto mb-6 w-32 h-32 sm:w-40 sm:h-40 shrink-0 rounded-full overflow-hidden border-4 border-[#c9a96e] shadow-[0_8px_32px_rgba(0,0,0,0.45)] ring-2 ring-[#c9a96e]/30">
-            <img
-              src={config.groomPortraitImage}
-              alt=""
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-
-          <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold">
+          <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold mt-1">
             Together With Their Families
           </p>
           <p className="font-montserrat text-sm text-[#fdf4e7] mb-3 font-medium">
@@ -453,13 +444,15 @@ export default function App() {
             <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#c9a96e]/80" />
           </div>
 
-          <div className="w-full max-w-5xl mx-auto my-2 flex flex-col items-center gap-6 lg:flex-row lg:justify-center lg:items-center lg:gap-3">
+          <div className="w-full max-w-5xl mx-auto my-2 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-y-5 gap-x-2 items-center justify-items-center">
             <CouplePairBlock
               groomName={config.couple1.groom.name}
               groomParent={config.couple1.groom.parent}
               brideParentName={config.couple1.bride.parentName}
             />
-            <AmpersandDivider className="py-0 lg:px-2 shrink-0" />
+            <div className="flex h-full min-h-[3rem] items-center justify-center self-center px-2">
+              <AmpersandDivider />
+            </div>
             <CouplePairBlock
               groomName={config.couple2.groom.name}
               groomParent={config.couple2.groom.parent}
