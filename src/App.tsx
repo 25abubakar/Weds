@@ -4,28 +4,48 @@ import { MapPin, Clock, Navigation, Users } from 'lucide-react';
 import Confetti from 'react-confetti';
 
 const config = {
+  family: { fatherName: 'Ayaz Hussain' },
   couple1: {
-    groom: { name: 'Muhammad Umar', parent: 'S/o Ayaz Hussain' },
-    bride: { parentName: 'Muhammad Jan', relation: 'Daughter of' },
+    groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
+    bride: { parentName: 'Muhammad Abid' },
   },
   couple2: {
-    groom: { name: 'Muhammad Abu Bakar', parent: 'S/o Ayaz Hussain' },
-    bride: { parentName: 'Muhammad Abid', relation: 'Daughter of' },
+    groom: { name: 'Muhammad Umar', parent: 'S/o Ayaz Hussain' },
+    bride: { parentName: 'Ghulam Hussain' },
   },
   event: {
     date: '5 December 2026',
+    dateShort: '5 Dec 2026',
     day: 'Saturday',
     time: '7:30 PM',
-    targetDate: 'December 5, 2026 19:30:00',
+    targetDate: '2026-12-05T19:30:00',
+    inshaAllah: 'IN SHA ALLAH',
   },
+  schedule: [
+    {
+      time: '7:00 PM',
+      title: 'Guest Arrival',
+      detail: 'Welcoming our honorable guests to the venue',
+    },
+    {
+      time: '7:30 PM',
+      title: 'Walima Ceremony',
+      detail: 'Welcoming the newlyweds & post-wedding celebrations',
+    },
+    {
+      time: '8:00 PM',
+      title: 'Dinner / Reception',
+      detail: 'Festive feast & celebration with family',
+    },
+  ],
   slides: [
     'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
     'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
     'https://images.unsplash.com/photo-1583939000340-6906241b12b5?auto=format&fit=crop&w=1200&q=80',
   ],
   venue: {
-    name: 'Galaxy Marriage Hall',
-    area: 'Grid Road Dera Ismail Khan',
+    name: 'Galaxy Marriage Lawn',
+    area: 'Dera Ismail Khan',
     address: 'Grid Road, Dera Ismail Khan, KPK',
     mapEmbedUrl:
       'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3310.744!2d70.899029!3d31.845421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDUwJzQzLjUiTiA3MMKwNTMnNTYuNSJF!5e0!3m2!1sen!2s!4v1725366600000!5m2!1sen!2s',
@@ -35,7 +55,73 @@ const config = {
   reception: 'All Family Members & Relatives',
 };
 
+function InvitePersonCard({
+  badge,
+  name,
+  subtitle,
+  variant,
+}: {
+  badge: string;
+  name: string;
+  subtitle?: string;
+  variant: 'groom' | 'bride';
+}) {
+  const ornament = variant === 'groom' ? '❧' : '♥';
+  return (
+    <div className="w-full max-w-[220px] sm:max-w-none mx-auto">
+      <div className="relative rounded-2xl border-2 border-[#d4b896] bg-gradient-to-b from-[#fffcf7] via-[#fdf4e7] to-[#f8ead8] px-4 py-5 sm:px-5 sm:py-6 shadow-[0_8px_24px_rgba(122,79,45,0.08)]">
+        <div className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a96e] to-transparent" />
+        <div className="pointer-events-none absolute -inset-px rounded-2xl border border-white/60" />
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-[#e8d0a0] bg-[#fdf8f0] px-3 py-0.5 shadow-sm">
+          <span className="text-[#c9a96e] text-sm leading-none">{ornament}</span>
+        </div>
+        <p className="mt-1 uppercase tracking-[0.22em] text-[10px] sm:text-[11px] text-[#9b7856] font-semibold">
+          {badge}
+        </p>
+        <p className="font-great-vibes text-[1.65rem] sm:text-4xl text-[#7a4f2d] leading-snug mt-2 px-1">
+          {name}
+        </p>
+        <div className="flex items-center gap-2 justify-center mt-3">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#e8d0a0]" />
+          <span className="text-[#c9a96e] text-[10px]">{ornament}</span>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#e8d0a0]" />
+        </div>
+        {subtitle && (
+          <p className="text-xs sm:text-sm text-[#6b5344] mt-2 font-montserrat">{subtitle}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AmpersandDivider({ className = '' }: { className?: string }) {
+  return (
+    <div className={`flex items-center justify-center ${className}`}>
+      <span className="font-great-vibes text-4xl sm:text-6xl text-[#c9a96e] drop-shadow-sm">&</span>
+    </div>
+  );
+}
+
+function ScratchDateContent() {
+  return (
+    <>
+      <p className="font-montserrat text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#9b7856] mb-1">
+        You&apos;re Invited
+      </p>
+      <p className="font-great-vibes text-2xl sm:text-3xl text-[#7a4f2d] leading-tight">{config.event.date}</p>
+      <p className="font-montserrat text-xs sm:text-sm text-gray-600 mt-1 tracking-widest uppercase">
+        {config.event.day} &nbsp;|&nbsp; {config.event.time}
+      </p>
+      <p className="font-montserrat text-[10px] sm:text-xs text-[#c9a96e] mt-1 tracking-wide">
+        {config.event.inshaAllah}
+      </p>
+    </>
+  );
+}
+
 // ─── Scratch Card ─────────────────────────────────────────────────
+const SCRATCH_REVEAL_RATIO = 0.45;
+
 const ScratchCard = ({
   isRevealed,
   setIsRevealed,
@@ -43,7 +129,47 @@ const ScratchCard = ({
   isRevealed: boolean;
   setIsRevealed: (v: boolean) => void;
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [cardSize, setCardSize] = useState({ width: 320, height: 160 });
+
+  const syncCanvasSize = () => {
+    const container = containerRef.current;
+    const canvas = canvasRef.current;
+    if (!container || !canvas) return;
+
+    const { width, height } = container.getBoundingClientRect();
+    const w = Math.max(1, Math.floor(width));
+    const h = Math.max(1, Math.floor(height));
+    setCardSize({ width: w, height: h });
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#b6a598';
+    ctx.fillRect(0, 0, w, h);
+    ctx.font = 'bold 16px Montserrat, sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✦ Scratch to Reveal ✦', w / 2, h / 2);
+  };
+
+  useEffect(() => {
+    if (isRevealed) return;
+    syncCanvasSize();
+    const container = containerRef.current;
+    if (!container) return;
+    const ro = new ResizeObserver(() => syncCanvasSize());
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, [isRevealed]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,46 +177,63 @@ const ScratchCard = ({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    ctx.fillStyle = '#b6a598';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.font = 'bold 18px Montserrat';
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('✦ Scratch to Reveal ✦', canvas.width / 2, canvas.height / 2);
-
     let isDrawing = false;
-    const scratch = (e: MouseEvent | TouchEvent) => {
-      if (!isDrawing) return;
+    let framePending = false;
+
+    const checkReveal = () => {
+      framePending = false;
+      const w = canvas.width;
+      const h = canvas.height;
+      if (!w || !h) return;
+      const pixels = ctx.getImageData(0, 0, w, h).data;
+      let transparent = 0;
+      const step = 16;
+      for (let i = 3; i < pixels.length; i += 4 * step) if (pixels[i] === 0) transparent++;
+      const sampled = pixels.length / 4 / step;
+      if (transparent / sampled > SCRATCH_REVEAL_RATIO) setIsRevealed(true);
+    };
+
+    const scratchAt = (clientX: number, clientY: number) => {
       const rect = canvas.getBoundingClientRect();
-      const clientX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
-      const clientY = e instanceof MouseEvent ? e.clientY : e.touches[0].clientY;
       const x = clientX - rect.left;
       const y = clientY - rect.top;
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.arc(x, y, 24, 0, Math.PI * 2);
       ctx.fill();
-      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let transparent = 0;
-      for (let i = 3; i < pixels.length; i += 4) if (pixels[i] === 0) transparent++;
-      if (transparent / (pixels.length / 4) > 0.5) setIsRevealed(true);
+      if (!framePending) {
+        framePending = true;
+        requestAnimationFrame(checkReveal);
+      }
     };
 
-    const start = () => (isDrawing = true);
+    const scratch = (e: MouseEvent | TouchEvent) => {
+      if (!isDrawing) return;
+      if (e instanceof TouchEvent) {
+        e.preventDefault();
+        for (const touch of Array.from(e.touches)) scratchAt(touch.clientX, touch.clientY);
+      } else {
+        scratchAt(e.clientX, e.clientY);
+      }
+    };
+
+    const start = (e: MouseEvent | TouchEvent) => {
+      isDrawing = true;
+      scratch(e);
+    };
     const stop = () => (isDrawing = false);
+
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mouseup', stop);
+    canvas.addEventListener('mouseleave', stop);
     canvas.addEventListener('mousemove', scratch as EventListener);
-    canvas.addEventListener('touchstart', start);
+    canvas.addEventListener('touchstart', start, { passive: false });
     canvas.addEventListener('touchend', stop);
-    canvas.addEventListener('touchmove', scratch as EventListener);
+    canvas.addEventListener('touchmove', scratch as EventListener, { passive: false });
     return () => {
       canvas.removeEventListener('mousedown', start);
       canvas.removeEventListener('mouseup', stop);
+      canvas.removeEventListener('mouseleave', stop);
       canvas.removeEventListener('mousemove', scratch as EventListener);
       canvas.removeEventListener('touchstart', start);
       canvas.removeEventListener('touchend', stop);
@@ -99,22 +242,29 @@ const ScratchCard = ({
   }, [isRevealed, setIsRevealed]);
 
   return (
-    <div className="relative w-80 h-36 mx-auto my-8 overflow-hidden rounded-2xl shadow-xl border-2 border-[#c9a96e] bg-[#fdf8f0] flex flex-col items-center justify-center">
-      {isRevealed && <Confetti width={300} height={140} recycle={false} numberOfPieces={250} />}
-      <div className="text-center z-0 px-4">
-        <p className="font-great-vibes text-3xl text-[#7a4f2d] leading-tight">{config.event.date}</p>
-        <p className="font-montserrat text-sm text-gray-600 mt-1 tracking-widest uppercase">
-          {config.event.day} &nbsp;|&nbsp; {config.event.time}
-        </p>
-        <p className="font-montserrat text-xs text-[#c9a96e] mt-1 tracking-wide">{config.venue.name}</p>
-      </div>
-      {!isRevealed && (
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full cursor-pointer z-10"
-          style={{ touchAction: 'none' }}
-        />
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-sm h-40 sm:h-44 mx-auto my-8 overflow-hidden rounded-2xl shadow-xl border-2 border-[#c9a96e] bg-[#fdf8f0]"
+    >
+      {isRevealed && (
+        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+          <Confetti width={cardSize.width} height={cardSize.height} recycle={false} numberOfPieces={220} />
+        </div>
       )}
+
+      {/* Date stays fixed in the center — visible while scratching and after reveal */}
+      <div className="absolute inset-0 z-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+        <ScratchDateContent />
+      </div>
+
+      <canvas
+        ref={canvasRef}
+        className={`absolute inset-0 z-10 cursor-pointer transition-opacity duration-500 ease-out ${
+          isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+        style={{ touchAction: 'none' }}
+        aria-hidden={isRevealed}
+      />
     </div>
   );
 };
@@ -183,11 +333,14 @@ export default function App() {
           style={{ background: 'radial-gradient(circle, #c9a96e 0%, transparent 70%)' }} />
 
         {/* Top subtitle */}
-        <p className="uppercase tracking-[0.4em] text-xs text-[#9b7856] mb-3 font-montserrat font-semibold">
+        <p className="uppercase tracking-[0.4em] text-xs text-[#9b7856] mb-2 font-montserrat font-semibold">
           Together With Their Families
         </p>
+        <p className="font-montserrat text-sm text-[#7a4f2d] mb-3 font-medium">
+          Sons of {config.family.fatherName}
+        </p>
         <p className="uppercase tracking-[0.25em] text-xs text-[#9b7856] mb-2 font-montserrat">
-          You Are Cordially Invited To The Wedding Ceremony Of
+          You Are Cordially Invited To The Walima Ceremony Of
         </p>
 
         {/* Divider */}
@@ -198,84 +351,38 @@ export default function App() {
         </div>
 
         {/* Two Grooms */}
-        <div className="grid grid-cols-3 items-center gap-4 w-full max-w-2xl mx-auto my-4">
-          {/* Groom 1 */}
-          <div className="text-center">
-            <p className="uppercase tracking-widest text-xs text-[#9b7856] mb-2 font-semibold">Groom</p>
-            <h1 className="font-great-vibes text-4xl sm:text-5xl text-[#7a4f2d] leading-tight">
-              {config.couple1.groom.name}
-            </h1>
-            <div className="flex items-center gap-2 justify-center mt-2">
-              <div className="h-px w-6 bg-[#c9a96e]" />
-              <span className="text-[#c9a96e] text-xs">❧</span>
-              <div className="h-px w-6 bg-[#c9a96e]" />
-            </div>
-            <p className="text-sm text-gray-600 mt-2 font-montserrat">{config.couple1.groom.parent}</p>
-          </div>
-
-          {/* & */}
-          <div className="text-center">
-            <span className="font-great-vibes text-5xl sm:text-6xl text-[#c9a96e]">&</span>
-          </div>
-
-          {/* Groom 2 */}
-          <div className="text-center">
-            <p className="uppercase tracking-widest text-xs text-[#9b7856] mb-2 font-semibold">Groom</p>
-            <h1 className="font-great-vibes text-4xl sm:text-5xl text-[#7a4f2d] leading-tight">
-              {config.couple2.groom.name}
-            </h1>
-            <div className="flex items-center gap-2 justify-center mt-2">
-              <div className="h-px w-6 bg-[#c9a96e]" />
-              <span className="text-[#c9a96e] text-xs">❧</span>
-              <div className="h-px w-6 bg-[#c9a96e]" />
-            </div>
-            <p className="text-sm text-gray-600 mt-2 font-montserrat">{config.couple2.groom.parent}</p>
-          </div>
+        <div className="w-full max-w-3xl mx-auto my-4 flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center gap-4 sm:gap-3">
+          <InvitePersonCard
+            variant="groom"
+            badge="Groom 1"
+            name={config.couple1.groom.name}
+            subtitle={config.couple1.groom.parent}
+          />
+          <AmpersandDivider className="py-0 sm:py-4" />
+          <InvitePersonCard
+            variant="groom"
+            badge="Groom 2"
+            name={config.couple2.groom.name}
+            subtitle={config.couple2.groom.parent}
+          />
         </div>
 
         {/* "with the daughter of" */}
-        <p className="font-great-vibes text-2xl text-[#9b7856] my-6 italic">with the daughter of</p>
+        <p className="font-great-vibes text-2xl sm:text-3xl text-[#9b7856] my-6 italic">with the daughter of</p>
 
-        {/* Bride Fathers */}
-        <div className="grid grid-cols-3 items-center gap-4 w-full max-w-2xl mx-auto">
-          {/* Bride father 1 */}
-          <div className="text-center">
-            <div className="border-2 border-[#c9a96e] rounded-xl px-4 py-5 bg-[#fdf4e7] shadow-sm relative">
-              <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#fdf8f0] px-2">
-                <span className="text-[#c9a96e] text-xs">♥</span>
-              </div>
-              <p className="font-great-vibes text-3xl sm:text-4xl text-[#7a4f2d] leading-tight">
-                {config.couple1.bride.parentName}
-              </p>
-              <div className="flex items-center gap-1 justify-center mt-2">
-                <div className="h-px flex-1 bg-[#e8d0a0]" />
-                <span className="text-[#c9a96e] text-xs">♥</span>
-                <div className="h-px flex-1 bg-[#e8d0a0]" />
-              </div>
-            </div>
-          </div>
-
-          {/* & */}
-          <div className="text-center">
-            <span className="font-great-vibes text-5xl sm:text-6xl text-[#c9a96e]">&</span>
-          </div>
-
-          {/* Bride father 2 */}
-          <div className="text-center">
-            <div className="border-2 border-[#c9a96e] rounded-xl px-4 py-5 bg-[#fdf4e7] shadow-sm relative">
-              <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#fdf8f0] px-2">
-                <span className="text-[#c9a96e] text-xs">♥</span>
-              </div>
-              <p className="font-great-vibes text-3xl sm:text-4xl text-[#7a4f2d] leading-tight">
-                {config.couple2.bride.parentName}
-              </p>
-              <div className="flex items-center gap-1 justify-center mt-2">
-                <div className="h-px flex-1 bg-[#e8d0a0]" />
-                <span className="text-[#c9a96e] text-xs">♥</span>
-                <div className="h-px flex-1 bg-[#e8d0a0]" />
-              </div>
-            </div>
-          </div>
+        {/* Bride side — names of fathers only (no bride names) */}
+        <div className="w-full max-w-3xl mx-auto flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center gap-4 sm:gap-3">
+          <InvitePersonCard
+            variant="bride"
+            badge="Daughter of"
+            name={config.couple1.bride.parentName}
+          />
+          <AmpersandDivider className="py-0 sm:py-4" />
+          <InvitePersonCard
+            variant="bride"
+            badge="Daughter of"
+            name={config.couple2.bride.parentName}
+          />
         </div>
 
         {/* Beginning of a beautiful journey */}
@@ -298,7 +405,7 @@ export default function App() {
             </div>
             <p className="uppercase text-xs tracking-widest text-[#9b7856] font-semibold">Date</p>
             <p className="font-montserrat font-bold text-sm text-[#5a3e28] uppercase tracking-wide">
-              {config.event.date}
+              {config.event.date} · {config.event.inshaAllah}
             </p>
           </div>
           <div className="hidden sm:block h-10 w-px bg-[#e8d0a0]" />
@@ -319,11 +426,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* Location tag */}
         <div className="mt-6 px-6 py-2 border border-[#c9a96e] rounded-full bg-[#7a4f2d] shadow-sm">
-          <p className="text-xs uppercase tracking-widest text-[#fdf8f0] font-semibold">Grid Tion</p>
+          <p className="text-xs uppercase tracking-widest text-[#fdf8f0] font-semibold">D.I. Khan</p>
         </div>
-        <p className="font-great-vibes text-3xl sm:text-4xl text-[#7a4f2d] mt-3">{config.venue.area}</p>
+        <p className="font-great-vibes text-3xl sm:text-4xl text-[#7a4f2d] mt-3">{config.venue.name}</p>
       </section>
 
       {/* ── Date Scratch & Reveal ───────────────────────── */}
@@ -369,7 +475,7 @@ export default function App() {
           <span className="text-[#c9a96e]">♥</span>
           <div className="h-px w-10 bg-[#c9a96e]" />
         </div>
-        <h2 className="font-playfair text-3xl text-[#7a4f2d] mb-1">Countdown to the Wedding</h2>
+        <h2 className="font-playfair text-3xl text-[#7a4f2d] mb-1">Countdown to the Walima</h2>
         <p className="text-[#9b7856] text-sm font-montserrat mb-2">{config.event.date} · {config.event.time}</p>
         <Countdown date={new Date(config.event.targetDate)} renderer={renderer} />
       </section>
@@ -377,8 +483,8 @@ export default function App() {
       {/* ── Venue & Schedule ───────────────────────────── */}
       <section className="py-20 px-4 max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <p className="uppercase tracking-[0.3em] text-xs text-[#9b7856] mb-2 font-semibold">Wedding Details</p>
-          <h2 className="font-great-vibes text-5xl text-[#7a4f2d]">Wedding Ceremony</h2>
+          <p className="uppercase tracking-[0.3em] text-xs text-[#9b7856] mb-2 font-semibold">Walima Details</p>
+          <h2 className="font-great-vibes text-5xl text-[#7a4f2d]">Walima Ceremony</h2>
           <div className="flex items-center gap-3 justify-center mt-4">
             <div className="h-px w-16 bg-[#c9a96e]" />
             <span className="text-[#c9a96e]">❧</span>
@@ -394,38 +500,27 @@ export default function App() {
               <Clock className="w-5 h-5 text-[#c9a96e]" /> Schedule
             </h3>
             <ul className="space-y-6">
-              <li className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-[#c9a96e] mt-1 flex-shrink-0" />
-                  <div className="w-px flex-1 bg-[#e8d9c5] mt-1" />
-                </div>
-                <div>
-                  <p className="font-bold font-montserrat text-sm text-[#c9a96e] uppercase tracking-wide">7:30 PM</p>
-                  <p className="font-playfair text-lg text-[#7a4f2d]">Guest Arrival</p>
-                  <p className="text-gray-400 text-sm">Welcoming our honorable guests</p>
-                </div>
-              </li>
-              <li className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-[#7a4f2d] mt-1 flex-shrink-0" />
-                  <div className="w-px flex-1 bg-[#e8d9c5] mt-1" />
-                </div>
-                <div>
-                  <p className="font-bold font-montserrat text-sm text-[#c9a96e] uppercase tracking-wide">8:30 PM</p>
-                  <p className="font-playfair text-lg text-[#7a4f2d]">Wedding Ceremony</p>
-                  <p className="text-gray-400 text-sm">The beautiful union begins</p>
-                </div>
-              </li>
-              <li className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full bg-[#9b7856] mt-1 flex-shrink-0" />
-                </div>
-                <div>
-                  <p className="font-bold font-montserrat text-sm text-[#c9a96e] uppercase tracking-wide">Dinner</p>
-                  <p className="font-playfair text-lg text-[#7a4f2d]">Reception & Dinner</p>
-                  <p className="text-gray-400 text-sm">Festive feast & celebration with family</p>
-                </div>
-              </li>
+              {config.schedule.map((item, index) => (
+                <li key={item.time} className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    <div
+                      className={`w-3 h-3 rounded-full mt-1 flex-shrink-0 ${
+                        index === 0 ? 'bg-[#c9a96e]' : index === 1 ? 'bg-[#7a4f2d]' : 'bg-[#9b7856]'
+                      }`}
+                    />
+                    {index < config.schedule.length - 1 && (
+                      <div className="w-px flex-1 bg-[#e8d9c5] mt-1" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-bold font-montserrat text-sm text-[#c9a96e] uppercase tracking-wide">
+                      {item.time}
+                    </p>
+                    <p className="font-playfair text-lg text-[#7a4f2d]">{item.title}</p>
+                    <p className="text-gray-400 text-sm">{item.detail}</p>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -436,7 +531,7 @@ export default function App() {
               <MapPin className="w-5 h-5 text-[#c9a96e]" /> The Venue
             </h3>
             <p className="font-montserrat font-bold text-lg text-[#5a3e28] mb-1">{config.venue.name}</p>
-            <p className="text-[#9b7856] text-sm font-montserrat mb-1 font-semibold">Grid Road</p>
+            <p className="text-[#9b7856] text-sm font-montserrat mb-1 font-semibold">{config.venue.area}</p>
             <p className="text-gray-500 mb-6 font-playfair">{config.venue.address}</p>
             <a
               href={config.venue.googleMapsLink}
@@ -551,10 +646,10 @@ export default function App() {
         style={{ background: '#5a3e28' }}
       >
         <p className="font-great-vibes text-4xl text-[#e8d0a0] mb-2">
-          Muhammad Umar & Muhammad Abu Bakar
+          {config.couple1.groom.name} & {config.couple2.groom.name}
         </p>
         <p className="font-montserrat text-xs tracking-widest text-[#c9a96e] uppercase mt-2">
-          5 December 2026 · Galaxy Marriage Hall · D.I. Khan
+          {config.event.date} · {config.venue.name} · {config.venue.area} · {config.event.inshaAllah}
         </p>
         <div className="flex items-center gap-3 justify-center mt-5">
           <div className="h-px w-12 bg-[#c9a96e]/50" />
