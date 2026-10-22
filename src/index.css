@@ -28,59 +28,82 @@
 
 .gate-overlay-screen {
   overflow: hidden;
-  background: linear-gradient(180deg, #5eb0e8 0%, #8ecbf2 42%, #c5e3f7 100%);
+  background: #000;
 }
 
-.gate-frame {
+.gate-couple-bg {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 1.2s ease 0.15s,
+    transform 2.2s ease-out 0.15s;
+}
+
+.gate-couple-bg-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gate-couple-bg-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.72));
+  opacity: 1;
+  transition: opacity 1.4s ease 0.4s;
+  pointer-events: none;
+}
+
+.gate-couple-bg-shade-open {
+  opacity: 0.35;
+}
+
+.gate-video-fullscreen {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 10px 36px rgba(0, 0, 0, 0.22));
+  object-fit: cover;
+  object-position: center center;
+  transition: opacity 0.65s ease;
 }
 
-.gate-half {
+.gate-video-fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gate-hero-writing {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background-repeat: no-repeat;
-  background-size: 200% auto;
-  background-position-y: 46%;
-  transition: transform 1.15s cubic-bezier(0.45, 0, 0.2, 1);
-  will-change: transform;
-  z-index: 2;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 1s ease 0.85s,
+    transform 1s ease 0.85s;
+  pointer-events: none;
 }
 
-@media (orientation: landscape) {
-  .gate-half {
-    background-size: 200% 100%;
-    background-position-y: center;
-  }
-}
-
-.gate-half-left {
-  left: 0;
-  background-position-x: left;
-  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
-}
-
-.gate-half-right {
-  right: 0;
-  background-position-x: right;
-  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
-}
-
-.gate-half-open-left {
-  transform: translateX(-102%);
-}
-
-.gate-half-open-right {
-  transform: translateX(102%);
+.gate-hero-writing-show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .gate-overlay-fade {
-  transition: opacity 0.5s ease 0.9s;
+  transition: opacity 0.5s ease;
 }
 
 .gate-overlay-fade.gate-overlay-hidden {

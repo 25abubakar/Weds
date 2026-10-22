@@ -2,14 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import Countdown from 'react-countdown';
 import { MapPin, Clock, Navigation, Users, ChevronDown, Shirt } from 'lucide-react';
 import Confetti from 'react-confetti';
-import coupleSlide from './assets/couple-slide.png';
-import gateImage from './assets/gate-white.jpg';
-import slide1 from './assets/slide-1.png';
+import realGate from './assets/real-Gate.mp4';
+import coupleSlide from './assets/couple-slide.jpg';
+import slide1 from './assets/slide-1.jpg';
 import slide2 from './assets/slide-2.jpg';
+import slide3 from './assets/slide-3.jpg';
+import { GateOverlay } from './components/GateOverlay';
 
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
-  gateImage,
+  gateVideo: realGate,
   heroImage: coupleSlide,
   family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
   couple1: {
@@ -45,7 +47,7 @@ const config = {
       detail: 'Festive feast & celebration with family',
     },
   ],
-  slides: [slide1, slide2, coupleSlide],
+  slides: [slide1, slide2, slide3],
   venue: {
     name: 'Galaxy Marriage Lawn',
     area: 'Dera Ismail Khan',
@@ -72,48 +74,6 @@ function SectionHeart() {
       <div className="h-8 w-px bg-gradient-to-b from-transparent via-[#c9a96e] to-[#c9a96e]" />
       <span className="text-2xl text-[#b87a7a] drop-shadow-sm">♥</span>
       <div className="h-8 w-px bg-gradient-to-b from-[#c9a96e] via-[#c9a96e] to-transparent" />
-    </div>
-  );
-}
-
-function GateOverlay({ onOpen }: { onOpen: () => void }) {
-  const [opening, setOpening] = useState(false);
-
-  const handleOpen = () => {
-    if (opening) return;
-    setOpening(true);
-    window.setTimeout(onOpen, 1300);
-  };
-
-  const gateUrl = config.gateImage;
-
-  return (
-    <div
-      className={`gate-overlay-screen fixed inset-0 z-[100] gate-overlay-fade ${opening ? 'gate-overlay-hidden' : ''}`}
-      aria-hidden={opening}
-    >
-      <div className="gate-frame">
-        <div
-          className={`gate-half gate-half-left ${opening ? 'gate-half-open-left' : ''}`}
-          style={{ backgroundImage: `url(${gateUrl})` }}
-        />
-        <div
-          className={`gate-half gate-half-right ${opening ? 'gate-half-open-right' : ''}`}
-          style={{ backgroundImage: `url(${gateUrl})` }}
-        />
-      </div>
-      {!opening && (
-        <button
-          type="button"
-          onClick={handleOpen}
-          className="absolute inset-0 z-30 cursor-pointer border-0 bg-transparent"
-          aria-label="Click to open the gate"
-        >
-          <span className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-full bg-black/55 px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.35em] text-white font-montserrat backdrop-blur-sm shadow-lg">
-            Click to open the gate
-          </span>
-        </button>
-      )}
     </div>
   );
 }
@@ -413,7 +373,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ background: '#fdf8f0', fontFamily: 'Montserrat, sans-serif' }}>
-      {!gateOpen && <GateOverlay onOpen={() => setGateOpen(true)} />}
+      {!gateOpen && (
+        <GateOverlay
+          gateVideo={config.gateVideo}
+          previewImage={config.heroImage}
+          onOpen={() => setGateOpen(true)}
+        />
+      )}
 
       {/* ── Hero (reference-style intro) ─────────────────── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 overflow-hidden">
