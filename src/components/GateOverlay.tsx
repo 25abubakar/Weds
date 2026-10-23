@@ -369,9 +369,6 @@ export function GateOverlay({
       />
 
       <div className={`gate-hero-writing ${showWriting ? 'gate-hero-writing-show' : ''}`}>
-        <p className="font-amiri text-2xl sm:text-4xl leading-relaxed text-[#e8d0a0] mb-3 drop-shadow-lg">
-          بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-        </p>
         <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] font-montserrat mb-3">
           We are getting married
         </p>
