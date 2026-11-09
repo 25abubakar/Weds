@@ -18,18 +18,21 @@ import {
   syncFirstVisibleSectionAudio,
   unlockMainSectionAudioForUserGesture,
 } from './lib/sectionMusicObserver';
+
+const PARENTS_NAMES = 'Mr & Mrs Ayaz Hussain';
+
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateVideo: realGate,
   gateSoundVideo: gateSoundClip,
   heroImage: coupleSlide,
-  family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
+  family: { fatherName: PARENTS_NAMES, phone: '03330613735' },
   couple1: {
-    groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
+    groom: { name: 'Muhammad Abubakar', parent: `S/o ${PARENTS_NAMES}` },
     bride: { parentName: 'Muhammad Abid' },
   },
   couple2: {
-    groom: { name: 'Muhammad Umar', parent: 'S/o Ayaz Hussain' },
+    groom: { name: 'Muhammad Umar', parent: `S/o ${PARENTS_NAMES}` },
     bride: { parentName: 'Ghulam Hussain' },
   },
   event: {
