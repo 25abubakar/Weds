@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import {
   continueGateMusic,
   startGateMusic,
-  unlockSectionAudioForUserGesture,
+  stopGateAudio,
+  unlockGateAudioForUserGesture,
 } from '../lib/sectionMusicObserver';
 
 /** Gate open animation kitni der (seconds) — zyada fast clip ko slow kar deta hai */
@@ -142,7 +143,12 @@ export function GateOverlay({
     const finish = () => {
       if (finishedRef.current) return;
       finishedRef.current = true;
-      gateSoundRef.current?.pause();
+      const sound = gateSoundRef.current;
+      if (sound) {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+      stopGateAudio();
       setPhase('revealed');
       window.setTimeout(() => onOpenRef.current(), 700);
     };
@@ -268,9 +274,17 @@ export function GateOverlay({
     });
   };
 
+  useEffect(
+    () => () => {
+      gateSoundRef.current?.pause();
+      stopGateAudio();
+    },
+    []
+  );
+
   const beginGateSoundOnTap = () => {
     if (phase !== 'idle') return;
-    unlockSectionAudioForUserGesture();
+    unlockGateAudioForUserGesture();
 
     if (useClipSound) {
       playGateClipSound(!gateSoundStartedRef.current);
@@ -288,7 +302,7 @@ export function GateOverlay({
 
   const handleOpen = () => {
     if (phase !== 'idle') return;
-    unlockSectionAudioForUserGesture();
+    unlockGateAudioForUserGesture();
     finishedRef.current = false;
     setPhase('opening');
 
@@ -368,13 +382,58 @@ export function GateOverlay({
         preload="auto"
       />
 
-      <div className={`gate-hero-writing ${showWriting ? 'gate-hero-writing-show' : ''}`}>
-        <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] font-montserrat mb-3">
-          We are getting married
-        </p>
-        <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] font-montserrat font-semibold">
-          Together With Their Families
-        </p>
+      <div
+        className={`gate-hero-writing ${phase === 'idle' ? 'gate-hero-writing-idle' : ''} ${showWriting ? 'gate-hero-writing-show' : ''}`}
+      >
+        <div className="max-w-md sm:max-w-lg mx-auto px-2 space-y-2.5 sm:space-y-3">
+          <p className="gate-intro-gold text-[9px] sm:text-[11px] uppercase tracking-[0.22em] sm:tracking-[0.28em] font-montserrat font-semibold leading-relaxed">
+            <span aria-hidden="true" className="not-italic inline-block mr-1">
+              ✨
+            </span>
+            With the blessings of Allah Almighty
+            <span aria-hidden="true" className="not-italic inline-block ml-1">
+              ✨
+            </span>
+          </p>
+
+          <div className="gate-intro-rule" aria-hidden="true" />
+
+          <p className="gate-intro-gold font-playfair text-xl sm:text-2xl font-semibold tracking-wide leading-snug uppercase">
+            <span aria-hidden="true" className="not-italic mr-1.5">
+              💑
+            </span>
+            Two Brothers
+            <span aria-hidden="true" className="not-italic ml-1.5">
+              💑
+            </span>
+          </p>
+
+          <p className="gate-intro-gold text-[11px] sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.26em] font-montserrat font-medium leading-relaxed">
+            Two Beautiful Love Stories
+          </p>
+
+          <p className="gate-intro-gold text-[10px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.22em] font-montserrat font-semibold leading-relaxed px-1">
+            <span aria-hidden="true" className="not-italic mr-1">
+              💕
+            </span>
+            One Joyful Beginning, Shared Forever
+            <span aria-hidden="true" className="not-italic ml-1">
+              💕
+            </span>
+          </p>
+
+          <div className="gate-intro-rule" aria-hidden="true" />
+
+          <p className="gate-intro-gold text-[10px] sm:text-xs uppercase tracking-[0.2em] font-montserrat font-medium italic leading-relaxed">
+            <span aria-hidden="true" className="not-italic mr-1">
+              🤍
+            </span>
+            Together With Their Beloved Families
+            <span aria-hidden="true" className="not-italic ml-1">
+              🤍
+            </span>
+          </p>
+        </div>
       </div>
 
       <button

@@ -12,7 +12,12 @@ import { GateOverlay } from './components/GateOverlay';
 import { MusicMissingBanner } from './components/MusicMissingBanner';
 import { SectionMusicPlayer } from './components/SectionMusicPlayer';
 import { SectionAudio } from './components/SectionAudio';
-import { playSectionByDomId, syncFirstVisibleSectionAudio } from './lib/sectionMusicObserver';
+import {
+  playSectionByDomId,
+  stopGateAudio,
+  syncFirstVisibleSectionAudio,
+  unlockMainSectionAudioForUserGesture,
+} from './lib/sectionMusicObserver';
 const config = {
   siteUrl: 'https://abubakarndumar.abubakar-devv.workers.dev',
   gateVideo: realGate,
@@ -98,7 +103,7 @@ function CouplePairBlock({
       <p className="font-great-vibes text-xl sm:text-2xl text-[#e8d0a0] my-4 italic text-center">
         with the daughter of
       </p>
-      <InvitePersonCard variant="bride" badge="Daughter of" name={brideParentName} />
+      <InvitePersonCard variant="bride" name={brideParentName} />
     </div>
   );
 }
@@ -377,13 +382,22 @@ export default function App() {
 
   useEffect(() => {
     if (!gateOpen) return;
-    const startHeroMusic = () => playSectionByDomId('hero-section');
+
+    const startHeroMusic = () => {
+      stopGateAudio();
+      playSectionByDomId('hero-section');
+    };
+
+    stopGateAudio();
+    unlockMainSectionAudioForUserGesture();
     startHeroMusic();
-    const t1 = window.setTimeout(startHeroMusic, 400);
-    const t2 = window.setTimeout(startHeroMusic, 1200);
+
+    const retry = window.setTimeout(startHeroMusic, 450);
+    const retry2 = window.setTimeout(() => syncFirstVisibleSectionAudio(), 600);
+
     return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
+      window.clearTimeout(retry);
+      window.clearTimeout(retry2);
     };
   }, [gateOpen]);
 
@@ -396,11 +410,9 @@ export default function App() {
           gateSoundVideo={config.gateSoundVideo}
           previewImage={config.heroImage}
           onOpen={() => {
+            stopGateAudio();
+            unlockMainSectionAudioForUserGesture();
             setGateOpen(true);
-            window.setTimeout(() => {
-              playSectionByDomId('hero-section');
-              syncFirstVisibleSectionAudio();
-            }, 200);
           }}
         />
       )}

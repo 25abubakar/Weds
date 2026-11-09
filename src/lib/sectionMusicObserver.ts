@@ -26,6 +26,21 @@ export function pauseAllAudios() {
   });
 }
 
+/** Gate clip / gate screen — hero se pehle poori tarah band. */
+export function stopGateAudio() {
+  const gateById = document.getElementById('audio-gate');
+  if (gateById) {
+    const media = gateById as HTMLMediaElement;
+    media.pause();
+    media.currentTime = 0;
+  }
+  document.querySelectorAll('#gate-section audio, #gate-section video.section-audio').forEach((el) => {
+    const media = el as HTMLMediaElement;
+    media.pause();
+    media.currentTime = 0;
+  });
+}
+
 function pauseOtherMainSectionMedia(keepSectionDomId: string) {
   for (const id of MAIN_MUSIC_SECTION_IDS) {
     if (id === keepSectionDomId) continue;
@@ -37,33 +52,48 @@ function pauseOtherMainSectionMedia(keepSectionDomId: string) {
   }
 }
 
-/** Gate tap par call karein — baad mein hero/scratch/footer autoplay policy pass ho jati hai. */
-export function unlockSectionAudioForUserGesture() {
+function unlockMediaForGesture(media: HTMLMediaElement, keepPlaying: boolean) {
+  if (!media.src) return;
+
+  const prevVolume = media.volume > 0 ? media.volume : 0.85;
+  media.volume = 0;
+  if (media instanceof HTMLVideoElement) {
+    media.muted = false;
+  }
+
+  void media
+    .play()
+    .then(() => {
+      if (!keepPlaying) {
+        media.pause();
+        media.currentTime = 0;
+      }
+      media.volume = prevVolume;
+    })
+    .catch(() => {
+      media.volume = prevVolume;
+    });
+}
+
+/** Sirf gate sound — tap par; hero/footer unlock mat karo (mixup kam). */
+export function unlockGateAudioForUserGesture() {
+  const gate = document.getElementById('audio-gate');
+  if (gate) unlockMediaForGesture(gate as HTMLMediaElement, true);
+}
+
+/** Gate kholne ke baad hero/scratch/footer ke liye autoplay unlock. */
+export function unlockMainSectionAudioForUserGesture() {
   document.querySelectorAll('audio.section-audio, video.section-audio').forEach((el) => {
     const media = el as HTMLMediaElement;
-    if (!media.src) return;
-
-    const prevVolume = media.volume > 0 ? media.volume : 0.85;
-    const isGate = media.id === 'audio-gate';
-
-    media.volume = 0;
-    if (media instanceof HTMLVideoElement) {
-      media.muted = false;
-    }
-
-    void media
-      .play()
-      .then(() => {
-        if (!isGate) {
-          media.pause();
-          media.currentTime = 0;
-        }
-        media.volume = prevVolume;
-      })
-      .catch(() => {
-        media.volume = prevVolume;
-      });
+    if (!media.src || media.id === 'audio-gate') return;
+    unlockMediaForGesture(media, false);
   });
+}
+
+/** @deprecated Prefer unlockGateAudioForUserGesture + unlockMainSectionAudioForUserGesture */
+export function unlockSectionAudioForUserGesture() {
+  unlockGateAudioForUserGesture();
+  unlockMainSectionAudioForUserGesture();
 }
 
 function playMediaEl(media: HTMLMediaElement) {
@@ -112,7 +142,12 @@ function switchToSectionMusic(sectionDomId: string) {
     return;
   }
 
+  if (sectionDomId === 'hero-section') {
+    stopGateAudio();
+  }
+
   activeSectionDomId = sectionDomId;
+  stopGateAudio();
   pauseOtherMainSectionMedia(sectionDomId);
   playSectionAudioElement(section);
 }

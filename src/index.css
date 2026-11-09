@@ -127,6 +127,35 @@
   transform: translateY(0);
 }
 
+.gate-hero-writing-idle {
+  opacity: 0.96;
+  transform: translateY(0);
+  transition: opacity 0.8s ease;
+}
+
+.gate-intro-gold {
+  background: linear-gradient(165deg, #fff4dc 0%, #e8d0a0 35%, #c9a96e 70%, #f0e0b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+}
+
+.gate-intro-rule {
+  width: min(18rem, 88vw);
+  height: 1px;
+  margin: 0.35rem auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 169, 110, 0.15) 8%,
+    rgba(232, 208, 160, 0.95) 50%,
+    rgba(201, 169, 110, 0.15) 92%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.35);
+}
+
 .gate-overlay-fade {
   transition: opacity 0.5s ease;
 }
