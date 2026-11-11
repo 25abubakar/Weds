@@ -5,10 +5,17 @@ import Confetti from 'react-confetti';
 import realGate from './assets/real-Gate.mp4';
 import gateSoundClip from './assets/music/gate.mp4';
 import coupleSlide from './assets/couple-slide.jpg';
-import slide1 from './assets/slide-1.jpg';
-import slide2 from './assets/slide-2.jpg';
-import slide3 from './assets/slide-3.jpg';
+const gallerySlideUrls = Object.entries(
+  import.meta.glob<string>('./assets/gallery/walima-*.jpg', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  })
+)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url);
 import { GateOverlay } from './components/GateOverlay';
+import { StackedPhotoDeck } from './components/StackedPhotoDeck';
 import { MusicMissingBanner } from './components/MusicMissingBanner';
 import { SectionMusicPlayer } from './components/SectionMusicPlayer';
 import { SectionAudio } from './components/SectionAudio';
@@ -57,7 +64,7 @@ const config = {
       detail: 'Festive feast & celebration with family',
     },
   ],
-  slides: [slide1, slide2, slide3],
+  slides: gallerySlideUrls,
   venue: {
     name: 'Galaxy Marriage Lawn',
     area: 'Dera Ismail Khan',
@@ -363,16 +370,6 @@ const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
 export default function App() {
   const [gateOpen, setGateOpen] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => setCurrentSlide((prev) => (prev + 1) % config.slides.length),
-      3500
-    );
-    return () => clearInterval(timer);
-  }, []);
-
   useEffect(() => {
     document.body.style.overflow = gateOpen ? '' : 'hidden';
     return () => {
@@ -519,35 +516,7 @@ export default function App() {
       <section id="footer-sound-zone" className="scroll-section">
         <SectionAudio section="footer" />
 
-      <div
-        id="slideshow-section"
-        className="w-full max-w-4xl mx-auto h-[60vh] md:h-[75vh] relative overflow-hidden my-8 shadow-2xl rounded-3xl"
-      >
-        {config.slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            <img src={slide} alt="Walima celebration" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
-          </div>
-        ))}
-        {config.slides.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-            {config.slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentSlide(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === i ? 'w-6 bg-white' : 'w-2 bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <StackedPhotoDeck id="slideshow-section" slides={config.slides} className="my-4" />
 
       {/* ── Countdown ──────────────────────────────────── */}
       <section
