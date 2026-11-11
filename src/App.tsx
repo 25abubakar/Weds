@@ -452,7 +452,7 @@ export default function App() {
             <p className="font-montserrat text-[10px] sm:text-xs uppercase tracking-[0.32em] text-[#e8d0a0]/85 mb-2">
               Sons of
             </p>
-            <p className="font-great-vibes text-[1.75rem] sm:text-3xl text-[#fdf4e7] leading-tight drop-shadow-[0_1px_12px_rgba(232,208,160,0.35)]">
+            <p className="font-montserrat text-sm sm:text-base text-[#e8d0a0] font-semibold tracking-[0.12em] sm:tracking-[0.18em] leading-relaxed">
               {config.family.parentsHonorific}
             </p>
           </div>
