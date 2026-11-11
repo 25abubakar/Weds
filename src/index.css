@@ -17,12 +17,28 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--color-bgLight);
     color: #1f2937;
     margin: 0;
     padding: 0;
     font-family: var(--font-montserrat);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 }
 
@@ -171,6 +187,14 @@
   max-width: 56rem;
   margin: 2rem auto 2.5rem;
   padding: 0 0.75rem;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#footer-sound-zone {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 .fan-carousel__shell {
@@ -219,6 +243,7 @@
   width: 100%;
   height: min(58vh, 22rem);
   margin: 0 auto;
+  overflow: hidden;
   perspective: 1200px;
   perspective-origin: 50% 50%;
 }
@@ -333,4 +358,25 @@
 .fan-carousel__nav-btn:hover {
   background: rgba(90, 62, 40, 0.38);
   transform: scale(1.05);
+}
+
+@media (max-width: 639px) {
+  .fan-carousel__card {
+    width: min(92%, 22rem);
+  }
+
+  .fan-carousel__card--side-l {
+    transform: translateX(calc(-50% - 22%)) translateZ(0) scale(0.9) rotateY(10deg);
+  }
+
+  .fan-carousel__card--side-r {
+    transform: translateX(calc(-50% + 22%)) translateZ(0) scale(0.9) rotateY(-10deg);
+  }
+
+  .fan-carousel__pill {
+    left: 0.5rem;
+    max-width: calc(100% - 5.5rem);
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
 }

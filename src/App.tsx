@@ -30,7 +30,11 @@ const config = {
   gateVideo: realGate,
   gateSoundVideo: gateSoundClip,
   heroImage: coupleSlide,
-  family: { fatherName: 'Ayaz Hussain', phone: '03330613735' },
+  family: {
+    fatherName: 'Ayaz Hussain',
+    parentsHonorific: 'Mr & Mrs Ayaz Hussain',
+    phone: '03330613735',
+  },
   couple1: {
     groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
     bride: { parentName: 'Muhammad Abid' },
@@ -105,9 +109,9 @@ function CouplePairBlock({
   brideParentName: string;
 }) {
   return (
-    <div className="w-full max-w-md mx-auto rounded-3xl border border-[#c9a96e]/45 bg-black/30 backdrop-blur-[2px] p-4 sm:p-5 shadow-lg">
+    <div className="w-full min-w-0 max-w-full sm:max-w-md mx-auto rounded-2xl sm:rounded-3xl border border-[#c9a96e]/45 bg-black/30 backdrop-blur-[2px] p-3 sm:p-5 shadow-lg box-border">
       <InvitePersonCard variant="groom" name={groomName} subtitle={groomParent} />
-      <p className="font-great-vibes text-xl sm:text-2xl text-[#e8d0a0] my-4 italic text-center">
+      <p className="font-great-vibes text-lg sm:text-2xl text-[#e8d0a0] my-3 sm:my-4 italic text-center">
         with the daughter of
       </p>
       <InvitePersonCard variant="bride" name={brideParentName} />
@@ -128,8 +132,8 @@ function InvitePersonCard({
 }) {
   const ornament = variant === 'groom' ? '❧' : '♥';
   return (
-    <div className="w-full max-w-[220px] sm:max-w-none mx-auto">
-      <div className="relative rounded-2xl border-2 border-[#d4b896] bg-gradient-to-b from-[#fffcf7] via-[#fdf4e7] to-[#f8ead8] px-4 py-5 sm:px-5 sm:py-6 shadow-[0_8px_24px_rgba(122,79,45,0.08)]">
+    <div className="w-full min-w-0 max-w-full mx-auto">
+      <div className="relative rounded-2xl border-2 border-[#d4b896] bg-gradient-to-b from-[#fffcf7] via-[#fdf4e7] to-[#f8ead8] px-3 py-4 sm:px-5 sm:py-6 shadow-[0_8px_24px_rgba(122,79,45,0.08)]">
         <div className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a96e] to-transparent" />
         <div className="pointer-events-none absolute -inset-px rounded-2xl border border-white/60" />
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-[#e8d0a0] bg-[#fdf8f0] px-3 py-0.5 shadow-sm">
@@ -142,7 +146,7 @@ function InvitePersonCard({
         ) : (
           <div className="mt-1 h-[14px] sm:h-[15px]" aria-hidden />
         )}
-        <p className="font-great-vibes text-[1.65rem] sm:text-4xl text-[#7a4f2d] leading-snug mt-2 px-1">
+        <p className="font-great-vibes text-2xl sm:text-4xl text-[#7a4f2d] leading-snug mt-2 px-1 break-words hyphens-auto">
           {name}
         </p>
         <div className="flex items-center gap-2 justify-center mt-3">
@@ -400,7 +404,10 @@ export default function App() {
 
   const groomShort = `${config.couple1.groom.name.split(' ').pop()} & ${config.couple2.groom.name.split(' ').pop()}`;
   return (
-    <div className="min-h-screen" style={{ background: '#fdf8f0', fontFamily: 'Montserrat, sans-serif' }}>
+    <div
+      className="min-h-screen w-full max-w-full overflow-x-hidden"
+      style={{ background: '#fdf8f0', fontFamily: 'Montserrat, sans-serif' }}
+    >
       {!gateOpen && (
         <GateOverlay
           gateVideo={config.gateVideo}
@@ -420,7 +427,7 @@ export default function App() {
       {/* ── Hero (reference-style intro) ─────────────────── */}
       <section
         id="hero-section"
-        className="scroll-section relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 overflow-hidden"
+        className="scroll-section relative min-h-[100dvh] flex flex-col items-center justify-center text-center px-3 sm:px-6 py-16 sm:py-20 overflow-hidden w-full max-w-full"
       >
         <SectionAudio section="hero" />
         <img
@@ -430,21 +437,26 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/70" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-2">
-          <p className="font-amiri text-2xl sm:text-3xl leading-relaxed text-[#e8d0a0] mb-3">
+        <div className="relative z-10 w-full min-w-0 max-w-4xl mx-auto flex flex-col items-center text-center px-2 sm:px-4">
+          <p className="font-amiri text-xl sm:text-3xl leading-relaxed text-[#e8d0a0] mb-3 px-1">
             بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
           </p>
-          <p className="uppercase tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] font-montserrat mb-5">
+          <p className="uppercase tracking-[0.14em] sm:tracking-[0.35em] text-xs sm:text-xs text-[#f0dcc8] font-montserrat mb-4 px-1">
             We are getting married
           </p>
 
-          <p className="uppercase tracking-[0.35em] text-[10px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold mt-1">
+          <p className="uppercase tracking-[0.12em] sm:tracking-[0.35em] text-[11px] sm:text-xs text-[#f0dcc8] mb-2 font-montserrat font-semibold mt-1 px-1">
             Together With Their Families
           </p>
-          <p className="font-montserrat text-sm text-[#fdf4e7] mb-3 font-medium">
-            Sons of {config.family.fatherName}
-          </p>
-          <p className="uppercase tracking-[0.22em] text-[10px] sm:text-xs text-[#e8d0a0] mb-2 font-montserrat max-w-lg">
+          <div className="mb-4 px-2">
+            <p className="font-montserrat text-[10px] sm:text-xs uppercase tracking-[0.32em] text-[#e8d0a0]/85 mb-2">
+              Sons of
+            </p>
+            <p className="font-great-vibes text-[1.75rem] sm:text-3xl text-[#fdf4e7] leading-tight drop-shadow-[0_1px_12px_rgba(232,208,160,0.35)]">
+              {config.family.parentsHonorific}
+            </p>
+          </div>
+          <p className="uppercase tracking-[0.1em] sm:tracking-[0.22em] text-[11px] sm:text-xs text-[#e8d0a0] mb-2 font-montserrat max-w-lg px-2 leading-relaxed">
             You Are Cordially Invited To The Walima Ceremony Of
           </p>
 
@@ -454,7 +466,7 @@ export default function App() {
             <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#c9a96e]/80" />
           </div>
 
-          <div className="w-full max-w-5xl mx-auto my-2 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-y-5 gap-x-2 items-center justify-items-center">
+          <div className="w-full min-w-0 max-w-5xl mx-auto my-2 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-y-6 gap-x-2 items-stretch justify-items-stretch px-1 sm:px-0">
             <CouplePairBlock
               groomName={config.couple1.groom.name}
               groomParent={config.couple1.groom.parent}
@@ -477,7 +489,7 @@ export default function App() {
             <span className="text-[#c9a96e]">♥</span>
             <div className="h-px w-12 bg-[#c9a96e]" />
           </div>
-          <p className="uppercase tracking-[0.35em] text-xs text-[#f0dcc8] font-semibold">
+          <p className="uppercase tracking-[0.12em] sm:tracking-[0.35em] text-xs text-[#f0dcc8] font-semibold px-2">
             Beginning of a Beautiful Journey
           </p>
         </div>
@@ -489,7 +501,7 @@ export default function App() {
       {/* ── Welcome + Scratch (ek section — snapshot jaisa poora block) ── */}
       <section
         id="scratch-section"
-        className="scroll-section min-h-screen flex flex-col justify-center px-4 sm:px-6 py-16 sm:py-20 text-center"
+        className="scroll-section min-h-[100dvh] flex flex-col justify-center px-3 sm:px-6 py-16 sm:py-20 text-center w-full max-w-full overflow-x-hidden"
         style={{
           background:
             'linear-gradient(180deg, #6b5344 0%, #9b7856 22%, #f5e9d5 48%, #fdf8f0 72%, #ffffff 100%)',
