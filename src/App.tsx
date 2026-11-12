@@ -36,12 +36,12 @@ const config = {
     phone: '03330613735',
   },
   couple1: {
-    groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
-    bride: { parentName: 'Muhammad Abid' },
-  },
-  couple2: {
     groom: { name: 'Muhammad Umar', parent: 'S/o Ayaz Hussain' },
     bride: { parentName: 'Ghulam Hussain' },
+  },
+  couple2: {
+    groom: { name: 'Muhammad Abubakar', parent: 'S/o Ayaz Hussain' },
+    bride: { parentName: 'Muhammad Abid' },
   },
   event: {
     date: '5 December 2026',
@@ -348,16 +348,16 @@ const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
     );
   }
   return (
-    <div className="flex gap-4 sm:gap-6 justify-center items-end mt-6 flex-wrap">
+    <div className="flex gap-2 sm:gap-6 justify-center items-end mt-6 flex-wrap max-w-full px-1">
       {[
         { label: 'Days', value: days },
         { label: 'Hours', value: hours },
         { label: 'Mins', value: minutes },
         { label: 'Secs', value: seconds },
       ].map((item, idx) => (
-        <div key={idx} className="flex flex-col items-center">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-md border border-[#e8d9c5]">
-            <span className="font-playfair text-2xl sm:text-3xl text-[#7a4f2d] font-bold">
+        <div key={idx} className="flex flex-col items-center min-w-0">
+          <div className="w-14 h-14 sm:w-20 sm:h-20 bg-white rounded-2xl flex items-center justify-center shadow-md border border-[#e8d9c5]">
+            <span className="font-playfair text-xl sm:text-3xl text-[#7a4f2d] font-bold">
               {String(item.value).padStart(2, '0')}
             </span>
           </div>
@@ -533,7 +533,7 @@ export default function App() {
       {/* ── Countdown ──────────────────────────────────── */}
       <section
         id="countdown-section"
-        className="py-20 px-4 text-center"
+        className="py-16 sm:py-20 px-3 sm:px-4 pb-[max(2.5rem,env(safe-area-inset-bottom,0px))] text-center w-full max-w-full overflow-x-hidden"
         style={{ background: 'linear-gradient(135deg, #f5e9d5 0%, #fdf8f0 100%)' }}
       >
         <div className="flex items-center gap-3 justify-center mb-4">

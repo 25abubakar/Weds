@@ -17,6 +17,7 @@ export function StackedPhotoDeck({ slides, id, className = '' }: StackedPhotoDec
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
   const busyRef = useRef(false);
+  const touchStartX = useRef<number | null>(null);
 
   const go = useCallback(
     (delta: number) => {
@@ -76,7 +77,20 @@ export function StackedPhotoDeck({ slides, id, className = '' }: StackedPhotoDec
           ))}
         </div>
 
-        <div className="fan-carousel__stage">
+        <div
+          className="fan-carousel__stage"
+          onTouchStart={(e) => {
+            touchStartX.current = e.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(e) => {
+            if (touchStartX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchStartX.current;
+            touchStartX.current = null;
+            if (Math.abs(dx) < 48) return;
+            if (dx < 0) goNext();
+            else goPrev();
+          }}
+        >
           {offsets.map((offset) => {
             const slideIndex = mod(active + offset, slides.length);
             const isCenter = offset === 0;
@@ -123,15 +137,15 @@ export function StackedPhotoDeck({ slides, id, className = '' }: StackedPhotoDec
               </button>
             );
           })}
-        </div>
 
-        <div className="fan-carousel__nav">
-          <button type="button" className="fan-carousel__nav-btn" onClick={goPrev} aria-label="Previous">
-            ‹
-          </button>
-          <button type="button" className="fan-carousel__nav-btn" onClick={goNext} aria-label="Next">
-            ›
-          </button>
+          <div className="fan-carousel__nav">
+            <button type="button" className="fan-carousel__nav-btn" onClick={goPrev} aria-label="Previous">
+              ‹
+            </button>
+            <button type="button" className="fan-carousel__nav-btn" onClick={goNext} aria-label="Next">
+              ›
+            </button>
+          </div>
         </div>
       </div>
     </section>

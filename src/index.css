@@ -200,6 +200,7 @@
 .fan-carousel__shell {
   position: relative;
   padding-top: 3.25rem;
+  overflow: hidden;
 }
 
 .fan-carousel__pill {
@@ -243,9 +244,10 @@
   width: 100%;
   height: min(58vh, 22rem);
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   perspective: 1200px;
-  perspective-origin: 50% 50%;
+  perspective-origin: 50% 42%;
+  touch-action: pan-y;
 }
 
 @media (min-width: 768px) {
@@ -333,11 +335,26 @@
 
 .fan-carousel__nav {
   position: absolute;
-  right: 1rem;
-  top: 0.35rem;
-  z-index: 40;
+  inset: 0;
+  z-index: 30;
   display: flex;
-  gap: 0.35rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.2rem;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .fan-carousel__nav {
+    inset: auto;
+    top: 0.35rem;
+    right: 1rem;
+    left: auto;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    padding: 0;
+  }
 }
 
 .fan-carousel__nav-btn {
@@ -345,14 +362,16 @@
   height: 2.1rem;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(90, 62, 40, 0.2);
+  background: rgba(90, 62, 40, 0.35);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: #fff;
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
+  pointer-events: auto;
   transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 6px 16px -6px rgba(40, 26, 16, 0.45);
 }
 
 .fan-carousel__nav-btn:hover {
@@ -361,22 +380,36 @@
 }
 
 @media (max-width: 639px) {
+  .fan-carousel {
+    margin: 1.25rem auto 2rem;
+    padding: 0 0.35rem;
+  }
+
+  .fan-carousel__shell {
+    padding-top: 3rem;
+  }
+
+  .fan-carousel__stage {
+    height: min(56vh, 21rem);
+    perspective-origin: 50% 40%;
+  }
+
+  /* Same fanned 3D layout as desktop — no narrower “flat” mobile variant */
   .fan-carousel__card {
-    width: min(92%, 22rem);
-  }
-
-  .fan-carousel__card--side-l {
-    transform: translateX(calc(-50% - 22%)) translateZ(0) scale(0.9) rotateY(10deg);
-  }
-
-  .fan-carousel__card--side-r {
-    transform: translateX(calc(-50% + 22%)) translateZ(0) scale(0.9) rotateY(-10deg);
+    width: min(78%, 22rem);
   }
 
   .fan-carousel__pill {
-    left: 0.5rem;
-    max-width: calc(100% - 5.5rem);
-    flex-wrap: wrap;
-    row-gap: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: calc(100% - 1.5rem);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .fan-carousel__pill::-webkit-scrollbar {
+    display: none;
   }
 }
